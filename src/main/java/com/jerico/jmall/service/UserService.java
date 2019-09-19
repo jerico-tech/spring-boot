@@ -1,6 +1,8 @@
 package com.jerico.jmall.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.jerico.jmall.domain.entity.UserEntity;
 
 /**
  * @className: UserService
@@ -10,5 +12,7 @@ import com.github.pagehelper.PageInfo;
  * @version:
  */
 public interface UserService {
-    PageInfo listUsers(int pageNum, int pageSize);
+    PageInfo<UserEntity> listUsers(int pageNum, int pageSize);
+
+    UserEntity insertUser(UserEntity userEntity);
 }

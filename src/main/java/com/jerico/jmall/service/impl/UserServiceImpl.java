@@ -23,12 +23,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
-
     @Override
-    public PageInfo listUsers(int pageNum, int pageSize) {
+    public PageInfo<UserEntity> listUsers(int pageNum, int pageSize) {
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
         PageHelper.startPage(pageNum, pageSize);
         List<UserEntity> listUsers = userDao.listUsers();
         PageInfo<UserEntity> pageInfo = new PageInfo<>(listUsers);
-        return null;
+        return pageInfo;
+    }
+
+    @Override
+    public UserEntity insertUser(UserEntity userEntity) {
+        userDao.insert(userEntity);
+        return userEntity;
     }
 }
