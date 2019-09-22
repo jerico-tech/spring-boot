@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE configuration
-                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<settings>
-    <setting name="mapUnderscoreToCamelCase" value="true"/>
-</settings>
-<typeAliases>
-    <package name="com.jerico.jmall.domain.entity"/>
-</typeAliases>
+    <!--配置驼峰属性自动映射，例如实体中属性为 userSex,数据库属性为 user_sex，MyBatis 默认是不能自动转换的。我们可以在application.yml中配置 mybatis.configuration.map-underscore-to-camel-case=true或在该文件中进行如下配置，实现自动映射。如果不进行此配置，通常我们要自定义以下结果集映射： -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <package name="com.jerico.jmall.domain.entity"/>
+    </typeAliases>
 </configuration>

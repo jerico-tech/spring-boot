@@ -2,6 +2,7 @@ package com.jerico.jmall.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.jerico.jmall.domain.dto.UserDTO;
 import com.jerico.jmall.domain.entity.UserEntity;
 
 /**
@@ -14,5 +15,11 @@ import com.jerico.jmall.domain.entity.UserEntity;
 public interface UserService {
     PageInfo<UserEntity> listUsers(int pageNum, int pageSize);
 
-    UserEntity insertUser(UserEntity userEntity);
+    UserDTO getUser(long id);
+
+    UserDTO saveUser(UserDTO userDTO);
+
+    UserDTO updateUser(UserDTO userDTO);
+
+    void removeUser(long id);
 }
