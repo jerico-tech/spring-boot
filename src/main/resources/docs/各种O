@@ -1,8 +1,45 @@
-domain包名
+### domain包名
 根据很多java程序员的”经验”来看，一个数据库表则对应着一个domain对象，所以很多程序员在写代码时，包名则使用：com.xxx.domain ，这样写好像已经成为了行业的一种约束，数据库映射对象就应该是domain。但是你错了，domain是一个领域对象，往往我们再做传统java软件web开发中，这些domain都是贫血模型，是没有行为的，或是没有足够的领域模型的行为的，所以，以这个理论来讲，这些domain都应该是一个普通的entity对象，并非领域对象，所以请把包名改为:com.xxx.entity。
-DTO
+### DTO
 数据传输我们应该使用DTO对象作为传输对象，这是我们所约定的，因为很长时间我一直都在做移动端api设计的工作，有很多人告诉我，他们认为只有给手机端传输数据的时候(input or output)，这些对象成为DTO对象。请注意！这种理解是错误的，只要是用于网络传输的对象，我们都认为他们可以当做是DTO对象，比如电商平台中，用户进行下单，下单后的数据，订单会发到OMS 或者 ERP系统，这些对接的返回值以及入参也叫DTO对象。
 
 我们约定某对象如果是DTO对象，就将名称改为XXDTO,比如订单下发OMS：OMSOrderInputDTO。
-DTO转化
+### DTO转化
 正如我们所知，DTO为系统与外界交互的模型对象，那么肯定会有一个步骤是将DTO对象转化为BO对象或者是普通的entity对象，让service层去处理。
+工具推荐：mapstruct 、 selma、 dozer 、beanutils
+本文推荐MapStruct。
+
+### MapStruct用法
+特点：高性能；易于debug；使用相对简单；代码独立。
+##### 引入依赖
+    <properties>
+            <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
+    </properties>
+    <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-jdk8</artifactId>
+        <version>${org.mapstruct.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-processor</artifactId>
+        <version>${org.mapstruct.version}</version>
+    </dependency>
+##### 创建Entity和DTO
+在domain包下创建entity（数据库表对应的实体类）和dto（数据传输对象，用于service层以上）包，分别用于存放XxxEntity和XxxDTO
+##### 写Mapper
+> 此mapper并不是mybatis中的mapper，而是mapstruct中用于实体间映射的mapper
+
+在domain包下创建mapper包，用于存放实体之间的转换mapper。
+### 参考
+https://www.bbsmax.com/A/8Bz8PVq6zx/
+https://blog.csdn.net/qq122516902/article/details/87259752
+
+### FAQ
+
+1.eclipse生成不了mapper接口实现类的解决方案：
+我直接运行项目的时候，发现一直未找到UserDtoMapper实例，从网上查找了好多种方案，都不能生效。
+
+最后发现：
+
+运行mvn clean项目，再mvn install项目，就生成实现类了。
