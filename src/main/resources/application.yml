@@ -13,6 +13,10 @@ spring:
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   config-location:  classpath:/config/mybatis-config.xml
+logging:
+  level:
+    #Mapper所在的包,debug:只打印sql语句；trace：会打印sql语句的执行结果
+    com.jerico.jmall.dao: trace
 
 pagehelper:
   helperDialect: mysql

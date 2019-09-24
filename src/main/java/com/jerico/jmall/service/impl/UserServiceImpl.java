@@ -1,6 +1,5 @@
 package com.jerico.jmall.service.impl;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jerico.jmall.dao.UserDAO;

@@ -1,6 +1,7 @@
 package com.jerico.jmall.dao;
 
 import com.jerico.jmall.domain.entity.UserEntity;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

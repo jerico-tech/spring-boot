@@ -21,7 +21,7 @@ public class UserDTO {
     private String name;
 
     @ApiModelProperty(value = "年龄")
-    private int age;
+    private Integer age;
 
     @ApiModelProperty(value = "性别")
     private String sex;

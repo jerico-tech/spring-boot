@@ -29,7 +29,7 @@
 
     <select id="listUsers" resultType="com.jerico.jmall.domain.entity.UserEntity">
         select
-        <include refid="sql_column"></include>
+        <include refid="user_column"></include>
         from user
         where
         1 = 1
