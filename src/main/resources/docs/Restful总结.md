@@ -1,9 +1,9 @@
 1. @RequestParam和@PathVariable注解的区别
 @RequestParam和@PathVariable这两者之间区别不大，主要是请求的URL不一样
 
-用@RequestParam请求接口时,URL是:http://www.test.com/user/getUserById?userId=1
+用@RequestParam请求接口时,URL是:http://www.test.com/users?userId=1
 
-用@PathVariable请求接口时,URL是:http://www.test.com/user/getUserById/2
+用@PathVariable请求接口时,URL是:http://www.test.com/users/2
 
 2. 参数的默认值
 @RequestParam使用defaultValue属性设置默认值

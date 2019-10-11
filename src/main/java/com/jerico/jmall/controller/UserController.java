@@ -59,7 +59,7 @@ public class UserController {
 
     @ApiOperation(value = "创建用户")
     @PostMapping()
-    public ResponseEntity<UserDTO> saveUser(UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         UserDTO user = userService.saveUser(userDTO);
         return new ResponseEntity<UserDTO>(user, HttpStatus.CREATED);
     }
