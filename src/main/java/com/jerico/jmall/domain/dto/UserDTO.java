@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.management.Descriptor;
+import java.io.Serializable;
 
 /**
  * @className: UserDTO
@@ -13,7 +14,7 @@ import javax.management.Descriptor;
  * @version:
  */
 @ApiModel(description = "用户传输对象")
-public class UserDTO {
+public class UserDTO implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 

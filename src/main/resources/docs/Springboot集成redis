@@ -1,0 +1,64 @@
+# Springboot集成Redis
+ ## 一、 添加依赖
+ 在项目的pom文件中添加redis依赖：
+ ```xml
+        <dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-data-redis</artifactId>
+ 		</dependency>
+```
+## 二、 在项目中配置application.yml
+```
+spring:
+  redis:
+    host: 192.168.81.128
+    port: 6379
+```
+## 三、 在启动类上增加缓存注解，开启注解驱动的缓存管理
+```java
+@EnableCaching
+@SpringBootApplication
+@MapperScan("com.jerico.jmall.dao")
+public class JmallApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(JmallApplication.class, args);
+	}
+
+}
+```
+## 四、在Service类的需要缓存的方法上使用注解
+
+
+## 五、 自定义配置Redis
+由于redis使用的是RedisCacheConfiguration类下RedisCacheManager。
+Redis缓存的是默认的 jdk 序列化的，如果想要自定义序列化为 json 需要重写RedisCacheManager
+```java
+@Configuration
+public class RedisConfig {
+    /**
+     * 基于SpringBoot2 对 RedisCacheManager 的自定义配置
+     * @param redisConnectionFactory
+     * @return
+     */
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        //初始化一个RedisCacheWriter
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+        //设置CacheManager的值序列化方式为json序列化
+        RedisSerializer<Object> jsonSerializer = new GenericJackson2JsonRedisSerializer();
+        RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair.fromSerializer(jsonSerializer);
+        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
+
+        //设置默认超过时期是1天
+        defaultCacheConfig.entryTtl(Duration.ofDays(1));
+        //初始化RedisCacheManager
+        return new RedisCacheManager(redisCacheWriter, defaultCacheConfig);
+    }
+}
+```
+## 六、运行测试
+
+## 参考
+1. spring boot —— redis 缓存注解使用教程:https://www.jianshu.com/p/970335a3f576 
+2. SpringBoot2 & RedisCacheManager: https://www.jianshu.com/p/ad168cc3603e

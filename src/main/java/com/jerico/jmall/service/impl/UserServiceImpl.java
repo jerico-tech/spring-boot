@@ -9,6 +9,9 @@ import com.jerico.jmall.domain.entity.UserEntity;
 import com.jerico.jmall.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Cacheable(cacheNames = "user", key = "list")
     @Override
     public PageInfo<UserEntity> listUsers(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
@@ -41,14 +45,17 @@ public class UserServiceImpl implements UserService {
         return pageInfo;
     }
 
+    @Cacheable(cacheNames = "user", key = "#id")
     @Override
     public UserDTO getUser(long id) {
+        System.out.println("getUser: " + id);
         UserDTO userDTO = new UserDTO();
         UserEntity userEntity = userDAO.getUserById(id);
         BeanUtils.copyProperties(userEntity, userDTO);
         return userDTO;
     }
 
+    @CachePut(cacheNames = "user", key = "#result.id")
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
@@ -58,6 +65,7 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    @CachePut(cacheNames = "user", key = "#userDTO.id")
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
@@ -67,6 +75,7 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    @CacheEvict(cacheNames = "user", key = "#id")
     @Override
     public void removeUser(long id) {
         userDAO.deleteUser(id);
