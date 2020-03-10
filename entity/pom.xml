@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- 继承父工程信息 -->
+  <parent>
+    <artifactId>springboot</artifactId>
+    <groupId>com.jerico.spring</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- groupId和version都是继承了父pom，故可以省略 -->
+  <artifactId>entity</artifactId>
+
+</project>
