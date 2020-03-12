@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lift?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    username: jerico
+    password: 12345678
+
+mybatis:
+  config-locations: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.jerico.spring.mybatis.entity
