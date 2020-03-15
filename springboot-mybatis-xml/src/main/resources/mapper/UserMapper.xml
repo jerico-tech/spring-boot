@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jerico.spring.mybatis.dao.UserDao">
-  <select id="getUser">
-    select
+<mapper namespace="com.jerico.spring.mybatis.dao.UserDAO">
+  <sql id="base_column">
     user_id,
     user_name,
     age,
-    phone,email,money,create_time,created_by,last_updated_by, last_update_time
-from common_user
+    phone,
+    email,
+    money,
+    create_time,
+    created_by,
+    last_updated_by,
+    last_update_time
+  </sql>
+
+  <select id="getUser" resultType="com.jerico.spring.mybatis.entity.UserEntity">
+    select
+    <include refid="base_column"/>
+    from common_user
+    where user_id = #{id}
   </select>
+
+  <select id="listUsers" resultType="com.jerico.spring.mybatis.entity.UserEntity">
+    select
+    <include refid="base_column"/>
+    from common_user
+  </select>
+
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
+    insert into common_user (user_id,
+                             user_name,
+                             age,
+                             phone,
+                             email,
+                             money,
+                             create_time,
+                             created_by,
+                             last_updated_by,
+                             last_update_time)
+    values (#{userId}, #{userName},
+            #{age}, #{phone}, #{email}, #{money}, now(), #{createdBy}, #{lastUpdatedBy}, now())
+  </insert>
+
+  <update id="updateUser">
+    update common_user
+    set user_name       = #{userName},
+        age             = #{age},
+        phone           = #{phone},
+        email           = #{email},
+        money           = #{money},
+        last_updated_by = #{lastUpdatedBy}
+    where user_id = #{userId}
+  </update>
+
+  <delete id="deleteUser">
+    delete
+    from common_user
+    where user_id = #{userId}
+  </delete>
+
 </mapper>
